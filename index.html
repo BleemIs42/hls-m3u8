@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset=utf-8 />
+<title>HLS</title>
+<link rel="stylesheet" href="player/mediaelementplayer.css" />
+<style>
+.mejs-controls {
+	display: none !important;
+}
+</style>
+</head>
+<body>
+<video width="375" height="720" id="player1">
+	<source type="application/x-mpegURL" src="">
+</video>
+
+<!-- <object width="375" height="720" type="application/x-shockwave-flash" >
+    <param name="movie" value="./player/flashmediaelement.swf" />
+    <param name="flashvars" value="controls=false&autoplay=true&file=http://pili-media.live.in66.com/recordings/z1.inlive.57a95f4c5e77b03d5203a7f1/in/2016/08/09/7D8C6F1D-D800-7558-DC95-CB5FD5A6F103-1MbGoAy.m3u8"/>
+</object> -->
+<button id="btn">切换</button>
+<div id="player"></div>
+
+<script src="http://7.url.cn/edu/jslib/jquery/1.9.1/jquery.min.js"></script> 
+<script src="player/mediaelement-and-player.js"></script>
+<script>
+
+
+
+var url = 'http://pili-media.live.in66.com/recordings/z1.inlive.57a95f4c5e77b03d5203a7f1/in/2016/08/09/7D8C6F1D-D800-7558-DC95-CB5FD5A6F103-1MbGoAy.m3u8';
+// $('source').attr('src', url);
+
+// var player = new MediaElementPlayer('#player1', {
+//     defaultVideoWidth: 375,
+//     defaultVideoHeight: 750,
+//     loop: true,
+//     clickToPlayPause: true,
+//     success: function (media, ele, player) {
+//         player.play();
+//     },
+//     error: function(err){
+//         console.log(err)
+//     }
+// })
+
+var player = createPlayer(url);
+function createPlayer(url){
+    $('source').attr('src', url);
+    return  new MediaElementPlayer('#player1', {
+        defaultVideoWidth: 375,
+        defaultVideoHeight: 750,
+        loop: true,
+        clickToPlayPause: true,
+        success: function (media, ele, player) {
+            player.play();
+        },
+        error: function(err){
+            console.log(err)
+        }
+    })
+}
+
+createFlash(url);
+function createFlash(url, w, h){
+    var width = w || 375;
+    var height = h || 750;
+    var html = '<object id="player" width="' + width + '" height="' + height + '" type="application/x-shockwave-flash">'
+                + '<param name="movie" value="./player/flashmediaelement.swf"/>'
+                + '<param name="flashvars" value="controls=false&autoplay=true&allowfullscreen=true&file=' + url + '"/>'
+             + '</object>';
+    $('#player').html(html);
+}
+
+$('button').on('click', function(){
+var url = window.location.origin + '/m3u8/index.m3u8';
+// var url = 'http://pili-media.live.in66.com/recordings/z1.inlive.57a95f4c5e77b03d5203a7f1/in/2016/08/09/7D8C6F1D-D800-7558-DC95-CB5FD5A6F103-1MbGoAy.m3u8';
+
+    player.setSrc(url);
+    player.play();
+
+    createFlash(url);
+})
+
+</script>
+</body>
+</html>
