@@ -1,4 +1,4 @@
-HLS-demo
+hls-m3u8
 ========
 
-> 一个简单的HLS视频播放例子，使用了MediaElement.js。
+> 简单的HLS视频播放例子，使用了MediaElement.js。
