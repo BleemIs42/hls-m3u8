@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset=utf-8 />
+    <title>HLS</title>
+    <meta id="viewport" content="width=device-width,initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport" />
+    <link rel="stylesheet" href="player/mediaelementplayer.css" />
+    <style>
+        *{
+            margin:0;
+            padding:0;
+        }
+        body{        
+            overflow: hidden;
+        }
+        .mejs-controls{
+            display:none !important;
+        }
+        #player{
+            position:absolute;
+            top:50%;
+            left:50%;
+        }
+    </style>
+</head>
+<body>
+<div id="player"></div>
+<!-- <button id="btn">切换</button> -->
+
+<script src="http://7.url.cn/edu/jslib/jquery/1.9.1/jquery.min.js"></script>
+<script src="./player/mediaelement-and-player.js"></script>
+<script>
+
+// var url = 'http://inlive.jiuyan.info/recordings/z1.inlive.57b5c5cf5e77b097c300d860@crop2/in/2016/08/19/09F0C092-EF68-096B-E63F-3629D7ECE94F-1pLQRRbg.m3u8';
+var url = 'http://inlive.jiuyan.info/recordings/z1.inlive.57e1f7321013855d35008279/in/2016/09/21/36E31980-8276-9CDA-8618-C80D36B2CA09-1XBBDpdV.m3u8';
+var url = 'http://pili-live-hls.live.in66.com/inlive/57e244f45e77b02a310049fb.m3u8';
+
+createFlash(url);
+function createFlash(src, w, h){
+    var winW = $(window).width();
+    var winH = $(window).height();
+    var winScale = winW / winH;
+
+    var videoW = w || 480;
+    var videoH = h || 848;
+    var videoScale = videoW / videoH;
+
+    if(videoScale > winScale){
+        videoW = winW;
+        videoH = winW / videoScale;
+    }else{
+        videoH = winH;
+        videoW = winH * videoScale;
+    }
+    var defaultUrl = window.location.origin + '/m3u8/index.m3u8';
+    var url = src || defaultUrl;
+
+    var html = '<object id="flash" width="' + videoW + '" height="' + videoH + '" type="application/x-shockwave-flash">'
+                + '<param name="movie" value="./player/flashmediaelement.swf"/>'
+                + '<param name="flashvars" value="controls=false&autoplay=true&allowfullscreen=true&file=' + url + '"/>'
+             + '</object>';
+
+    var $player = $('#player')
+        .css({
+            'margin-left': -videoW / 2,
+            'margin-top': -videoH / 2
+        })
+        .html(html);
+}
+
+$(window).on('online', function(){
+    window.location.reload();
+})
+
+
+</script>
+</body>
+</html>
