@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset=utf-8 />
+<title>移动端HLS</title>
+    <meta id="viewport" content="width=device-width,initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport" />
+    <link rel="stylesheet" href="player/mediaelementplayer.css" />
+    <style>
+        *{
+            margin:0;
+            padding:0;
+            outline:none;
+        }
+        body{        
+            overflow: hidden;
+        }
+        .container{
+            position:absolute;
+            top:50%;
+            left:50%;
+        }
+        .mejs-container{
+            height:0;
+            background-color: rgba(255,255,255,0);
+        }
+        .mejs-controls{
+            display:none !important;
+        }
+        #play,#pause{
+            position:absolute;
+            cursor: pointer;
+            z-index: 1000;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <video id="video" autoplay webkit-playsinline type="application/x-mpegURL" src="http://inlive.jiuyan.info/recordings/z1.inlive.57e2463a75b62535c300506b/in/2016/09/21/57B65BA9-7607-BD79-F1A3-C24A7B3B7884-1bLjoXDy.m3u8"></video>
+    </div><br>
+    <button id="play">Play</button><br><br>
+    <button id="pause">Pause</button>
+<script src="js/jquery-1.12.4.min.js"></script>
+<script src="./player/mediaelement-and-player.js"></script>
+
+<script>
+$(function(){
+    function App(){
+        this.container = $('.container');
+        this.video = $('#video');
+    }
+    App.prototype = {
+        init: function(){
+            this.createPlayer();
+        },
+        setSrc: function(url){
+            var src = url || 'm3u8/index.m3u8';
+            this.video.attr({
+                'src': src,
+                'width': this.getSize().w,
+                'height': this.getSize().h
+            });
+        },
+        createPlayer: function(){            
+            var url = 'http://pili-live-hls.live.in66.com/inlive/57e3967d5e77b02a3102ed60.m3u8';
+            this.setSrc(url);
+            this.setStyle();
+            window.player = this.player = new MediaElementPlayer(this.video, {
+                videoWidth: this.getSize().w,
+                videoHeight: this.getSize().h,
+                success: function(media){
+                    media.play();
+                    media.addEventListener('ended', function() {
+                        console.log('end')
+                        try {
+                            this.video.removeAttr('src')
+                            this.player.controls.addClass('mejs-offscreen');
+                        } catch (e) {}
+                    }.bind(this));
+
+                    media.addEventListener('pause', function() {
+                        console.log('pause')
+                    }.bind(this));
+
+                    this.pause();
+                    this.play();
+                }.bind(this),
+                error: function(media) {
+                    console.log(media)
+                    console.log('error')
+                }.bind(this)
+            })
+        },
+        getSize: function(w, h){
+            var winW = $(window).width();
+            var winH = $(window).height();
+            var winScale = winW / winH;
+
+            var videoW = w || 480;
+            var videoH = h || 848;
+            var videoScale = videoW / videoH;
+
+            if(videoScale > winScale){
+                videoW = winW;
+                videoH = winW / videoScale;
+            }else{
+                videoH = winH;
+                videoW = winH * videoScale;
+            }
+            return {
+                'w': videoW,
+                'h': videoH
+            }
+        },
+        setStyle: function(){
+            this.container.css({
+                'margin-left': -this.getSize().w / 2,
+                'margin-top': -this.getSize().h / 2
+            });
+        },
+        play: function(){
+            $('#play').on('click', function(){
+                try{
+                    window.player.play();
+                }catch(e){
+                    alert(e)
+                }
+            })
+            // .trigger('click')
+        },
+        pause: function(){
+            $('#pause').on('click', function(){
+                try{
+                    window.player.pause();
+                }catch(e){
+                    alert(e)
+                }
+            })
+        }
+    }
+    new App().init();
+})
+
+</script>
+</body>
+</html>

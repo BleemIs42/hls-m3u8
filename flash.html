@@ -25,15 +25,16 @@
 </head>
 <body>
 <div id="player"></div>
-<!-- <button id="btn">切换</button> -->
 
-<script src="http://7.url.cn/edu/jslib/jquery/1.9.1/jquery.min.js"></script>
-<script src="./player/mediaelement-and-player.js"></script>
+<script src="js/jquery-1.12.4.min.js"></script>
+
 <script>
 
-// var url = 'http://inlive.jiuyan.info/recordings/z1.inlive.57b5c5cf5e77b097c300d860@crop2/in/2016/08/19/09F0C092-EF68-096B-E63F-3629D7ECE94F-1pLQRRbg.m3u8';
 var url = 'http://inlive.jiuyan.info/recordings/z1.inlive.57e1f7321013855d35008279/in/2016/09/21/36E31980-8276-9CDA-8618-C80D36B2CA09-1XBBDpdV.m3u8';
-var url = 'http://pili-live-hls.live.in66.com/inlive/57e244f45e77b02a310049fb.m3u8';
+var url = 'http://pili-live-hls.live.in66.com/inlive/57e37a6a75b62535c3029b9e.m3u8';
+// var url = 'http://inlive.jiuyan.info/recordings/z1.inlive.57e37f9b5e77b02a3102a6ca/in/2016/09/22/6A5A6880-22A0-C5ED-9210-54EBFBD8B9AD-1rBGvLdV.m3u8';
+// var url = '/test.html';
+
 
 createFlash(url);
 function createFlash(src, w, h){
@@ -66,6 +67,62 @@ function createFlash(src, w, h){
             'margin-top': -videoH / 2
         })
         .html(html);
+
+    var host = '//inlive.jiuyan.info';
+    if(!~url.indexOf(host)){
+        checkUrl(url)
+    }else{
+        url += '?avinfo';
+        getVideoInfo(url);
+    }
+}
+
+// checkUrl(url)
+function checkUrl(url){
+    var timer = setTimeout(function(){
+        checkUrl(url);
+    }, 1000);
+    $.ajax({
+        type: 'GET',
+        url: url,
+        dataType:'text'
+    })
+    .done(function(res){
+        // console.log(res)
+        var regM3U = /#EXTM3U/;
+        if(regM3U.test(res)){
+            console.log('Source is valid');
+        }
+    })
+    .fail(function(){
+        console.error('Source is invalid');
+        clearTimeout(timer);
+    })
+}
+
+function getVideoInfo(url){
+    $.ajax({
+        type: 'GET',
+        url: url,
+        dataType:'json'
+    })
+    .done(function(res){
+        if(res && res.format && res.format.duration){
+            var second = res.format.duration;
+            console.log('second: ' + second)
+
+            var timer = setInterval(function(){
+                second--;
+                if(second < 0){
+                    clearInterval(timer);
+                    console.log('Video over!')
+                }
+            }, 1000)
+        }
+    })
+    .fail(function(){
+        console.error('Source is invalid!');
+    })
 }
 
 $(window).on('online', function(){
