@@ -1,0 +1,400 @@
+@charset "UTF-8";
+/* alice.base 样式模块 */
+/* 
+ * 借鉴normalize.css
+ * https://github.com/necolas/normalize.css
+ */
+/* 防止用户自定义背景颜色对网页的影响，添加让用户可以自定义字体 */
+html {
+  color: #000;
+  background: #fff;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  font-size: 10px; }
+
+/* 内外边距通常让各个浏览器样式的表现位置不同 */
+body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fieldset, legend, input, textarea, p, blockquote, th, td, hr, button, article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+  margin: 0;
+  padding: 0; }
+
+/* 重设 HTML5 标签, IE 需要在 js 中 createElement(TAG) */
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+  display: block; }
+
+/* HTML5 媒体文件跟 img 保持一致 */
+audio, canvas, video {
+  display: inline-block;
+  *display: inline;
+  *zoom: 1; }
+
+/* 要注意表单元素并不继承父级 font 的问题 */
+body, button, input, select, textarea {
+  font: 12px/1.5 tahoma,arial,"Hiragino Sans GB",\5b8b\4f53; }
+
+input, select, textarea {
+  font-size: 100%; }
+
+/* 去掉各Table  cell 的边距并让其边重合 */
+table {
+  border-collapse: collapse;
+  border-spacing: 0; }
+
+/* IE bug fixed: th 不继承 text-align*/
+th {
+  text-align: inherit; }
+
+/* 去除默认边框 */
+fieldset, img {
+  border: 0; }
+
+/* ie6 7 8(q) bug 显示为行内表现 */
+iframe {
+  display: block; }
+
+/* 去掉 firefox 下此元素的边框 */
+abbr, acronym {
+  border: 0;
+  font-variant: normal; }
+
+/* 一致的 del 样式 */
+del {
+  text-decoration: line-through; }
+
+address, caption, cite, code, dfn, em, th, var {
+  font-style: normal;
+  font-weight: 500; }
+
+/* 去掉列表前的标识, li 会继承 */
+ol, ul {
+  list-style: none; }
+
+/* 对齐是排版最重要的因素, 别让什么都居中 */
+caption, th {
+  text-align: left; }
+
+/* 来自yahoo, 让标题都自定义, 适应多个系统应用 */
+h1, h2, h3, h4, h5, h6 {
+  font-size: 100%;
+  font-weight: 500; }
+
+q:before, q:after {
+  content: ''; }
+
+/* 统一上标和下标 */
+sub, sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline; }
+
+sup {
+  top: -0.5em; }
+
+sub {
+  bottom: -0.25em; }
+
+input:focus, textarea:focus, button:focus, area {
+  outline: none; }
+
+/*
+ * 去除IE10+浏览器文本框后面的小叉叉
+ */
+input::-ms-clear {
+  display: none; }
+
+textarea {
+  resize: none; }
+
+img {
+  display: inline-block;
+  vertical-align: top; }
+
+/* 正常链接 未访问 */
+/*a:link {
+    color: #08c;
+}*/
+/* 鼠标悬停 */
+a:hover {
+  /*color: #08c;*/
+  text-decoration: underline; }
+
+/* 默认不显示下划线，保持页面简洁 */
+ins, a {
+  text-decoration: none; }
+
+/* 清理浮动 */
+.clearfix {
+  *zoom: 1; }
+  .clearfix::before, .clearfix::after {
+    content: " ";
+    display: table; }
+  .clearfix::after {
+    clear: both; }
+
+body {
+  max-width: 720px;
+  margin: 0 auto; }
+
+.center-layout {
+  text-align: center; }
+
+/*隐藏外部广告*/
+[id*=ads],
+[class*=ads],
+.tlbs {
+  display: none !important; }
+
+body {
+  width: 100%;
+  max-width: 100%;
+  font-family: "SimHei";
+  background-image: url(../images/bg_2.jpg);
+  background-size: 100%;
+  background-repeat: no-repeat;
+  overflow: hidden; }
+
+.mejs-controls, .mejs-offscreen {
+  display: none !important; }
+
+.me-cannotplay a span {
+  display: none; }
+
+.wrapper {
+  width: 100%; }
+  .wrapper .container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    height: 100%;
+    z-index: 1; }
+    .wrapper .container .decoration {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 10;
+      display: none; }
+      .wrapper .container .decoration .head {
+        position: absolute;
+        top: 0;
+        left: 0;
+        margin-top: 0.63rem;
+        margin-left: 0.48rem;
+        width: 16.53rem; }
+        .wrapper .container .decoration .head .info {
+          float: left;
+          width: 6.75rem;
+          border-radius: 0.9rem;
+          background-color: #2f2d2f;
+          background-color: rgba(113, 112, 116, 0.5); }
+          .wrapper .container .decoration .head .info img {
+            float: left;
+            width: 1.62rem;
+            height: 1.62rem;
+            border: 1px solid #cff;
+            border-radius: 50%;
+            box-sizing: border-box; }
+          .wrapper .container .decoration .head .info .name {
+            margin-left: 1.92rem;
+            padding: 0.12rem 0;
+            color: #fff;
+            font-size: 0.54rem;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden; }
+            .wrapper .container .decoration .head .info .name .count {
+              font-size: 0.4167rem; }
+              .wrapper .container .decoration .head .info .name .count span {
+                color: #f2ab3b; }
+        .wrapper .container .decoration .head .people {
+          float: left;
+          width: 9.6rem;
+          height: 1.2rem;
+          margin: 0.3rem 0;
+          overflow: hidden; }
+          .wrapper .container .decoration .head .people img {
+            width: 1.11rem;
+            margin-left: 0.18rem;
+            border-radius: 50%; }
+        .wrapper .container .decoration .head .hot {
+          float: left;
+          margin-top: 0.3rem;
+          padding: 0.15rem 0.3rem;
+          color: #fff;
+          font-size: 0.54rem;
+          border-radius: 0.75rem;
+          background-color: #2f2d2f;
+          background-color: rgba(113, 112, 116, 0.5); }
+          .wrapper .container .decoration .head .hot em {
+            padding-left: 0.84rem;
+            padding-right: 0.3rem;
+            background-image: url(../images/hot-icon.png);
+            background-size: 0.6rem 0.6rem;
+            background-repeat: no-repeat; }
+      .wrapper .container .decoration .comment {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        padding-left: 0.45rem;
+        padding-bottom: 0.9rem;
+        width: 10.2rem; }
+        .wrapper .container .decoration .comment .item {
+          margin-bottom: 0.3rem; }
+          .wrapper .container .decoration .comment .item img {
+            float: left;
+            width: 1.2rem;
+            margin-right: 0.24rem;
+            border-radius: 50%; }
+          .wrapper .container .decoration .comment .item .word {
+            float: left;
+            max-width: 8.1rem;
+            color: #fff;
+            font-size: 0.6rem;
+            padding: 0.24rem;
+            background-color: #2f2d2f;
+            background-color: rgba(113, 112, 116, 0.5);
+            border-radius: 0.6rem; }
+      .wrapper .container .decoration .qr {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        width: 4.8rem;
+        margin: 0.6rem;
+        padding: 0.3rem 0.15rem;
+        background-color: #2f2d2f;
+        background-color: rgba(113, 112, 116, 0.5);
+        text-align: center;
+        color: #fff;
+        border-radius: 0.6rem;
+        z-index: 101; }
+        .wrapper .container .decoration .qr .scan {
+          font-size: 0.54rem; }
+        .wrapper .container .decoration .qr .download {
+          padding-top: 0.06rem;
+          font-size: 0.42rem;
+          color: #efefef; }
+        .wrapper .container .decoration .qr .qr-img {
+          position: relative;
+          width: 60%;
+          margin: 0.3rem 0;
+          padding: 0.3rem; }
+          .wrapper .container .decoration .qr .qr-img .img {
+            background-color: #fff;
+            border-radius: 0.3rem; }
+          .wrapper .container .decoration .qr .qr-img .logo {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0.24rem; }
+      .wrapper .container .decoration .emoji-box {
+        position: absolute;
+        bottom: 6.9rem;
+        right: 2.4rem; }
+        .wrapper .container .decoration .emoji-box .emoji {
+          position: absolute;
+          bottom: 0;
+          right: 0;
+          background-size: 90%;
+          background-repeat: no-repeat; }
+          .wrapper .container .decoration .emoji-box .emoji.emoji-1 {
+            width: 1.56rem;
+            padding-top: 1.62rem;
+            background-image: url(../images/emoji-1.png); }
+          .wrapper .container .decoration .emoji-box .emoji.emoji-2 {
+            width: 1.68rem;
+            padding-top: 1.59rem;
+            background-image: url(../images/emoji-2.png); }
+          .wrapper .container .decoration .emoji-box .emoji.emoji-15 {
+            width: 1.68rem;
+            padding-top: 1.59rem;
+            background-image: url(../images/emoji-2.png); }
+          .wrapper .container .decoration .emoji-box .emoji.emoji-3 {
+            width: 1.71rem;
+            padding-top: 1.38rem;
+            background-image: url(../images/emoji-3.png); }
+          .wrapper .container .decoration .emoji-box .emoji.emoji-4 {
+            width: 1.32rem;
+            padding-top: 1.32rem;
+            background-image: url(../images/emoji-4.png); }
+          .wrapper .container .decoration .emoji-box .emoji.emoji-5 {
+            width: 1.77rem;
+            padding-top: 1.5rem;
+            background-image: url(../images/emoji-5.png); }
+          .wrapper .container .decoration .emoji-box .emoji.emoji-14 {
+            width: 1.77rem;
+            padding-top: 1.5rem;
+            background-image: url(../images/emoji-5.png); }
+          .wrapper .container .decoration .emoji-box .emoji.emoji-6 {
+            width: 1.53rem;
+            padding-top: 1.56rem;
+            background-image: url(../images/emoji-6.png); }
+          .wrapper .container .decoration .emoji-box .emoji.emoji-7 {
+            width: 1.65rem;
+            padding-top: 1.68rem;
+            background-image: url(../images/emoji-7.png); }
+          .wrapper .container .decoration .emoji-box .emoji.emoji-12 {
+            width: 1.65rem;
+            padding-top: 1.68rem;
+            background-image: url(../images/emoji-7.png); }
+          .wrapper .container .decoration .emoji-box .emoji.emoji-13 {
+            width: 1.65rem;
+            padding-top: 1.68rem;
+            background-image: url(../images/emoji-7.png); }
+          .wrapper .container .decoration .emoji-box .emoji.emoji-8 {
+            width: 1.65rem;
+            padding-top: 1.68rem;
+            background-image: url(../images/emoji-8.png); }
+          .wrapper .container .decoration .emoji-box .emoji.emoji-9 {
+            width: 1.65rem;
+            padding-top: 1.68rem;
+            background-image: url(../images/emoji-9.png); }
+          .wrapper .container .decoration .emoji-box .emoji.emoji-10 {
+            width: 1.65rem;
+            padding-top: 1.68rem;
+            background-image: url(../images/emoji-9.png); }
+          .wrapper .container .decoration .emoji-box .emoji.emoji-11 {
+            width: 1.65rem;
+            padding-top: 1.68rem;
+            background-image: url(../images/emoji-9.png); }
+  .wrapper .ring {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    z-index: 100; }
+    .wrapper .ring img {
+      width: 8.7rem; }
+  .wrapper .qr {
+    position: absolute;
+    bottom: 0.9rem;
+    right: 3.3rem;
+    width: 4.8rem;
+    margin: 0.6rem;
+    padding: 0.3rem 0.15rem;
+    background-color: #2f2d2f;
+    background-color: rgba(113, 112, 116, 0.5);
+    text-align: center;
+    color: #fff;
+    border-radius: 0.6rem;
+    z-index: 101; }
+    .wrapper .qr .scan {
+      font-size: 0.54rem; }
+    .wrapper .qr .download {
+      padding-top: 0.06rem;
+      font-size: 0.42rem;
+      color: #efefef; }
+    .wrapper .qr .qr-img {
+      position: relative;
+      margin: 0.3rem auto; }
+      .wrapper .qr .qr-img .img {
+        width: 72%;
+        padding: 0.3rem;
+        background-color: #fff;
+        border-radius: 0.3rem; }
+      .wrapper .qr .qr-img .logo {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin-top: -0.6rem;
+        margin-left: -0.6rem;
+        width: 1.2rem; }

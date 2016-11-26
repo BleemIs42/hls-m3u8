@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>移动端HLS</title>
+    <meta name="keywords" content=""/>
+    <meta name="description" content=""/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+    <meta name="format-detection" content="telephone=no, email=no"/>
+    <link rel="stylesheet" href="css/index.css">
+</head>
+<body>    
+    <div class="wrapper">
+        <div class="container">     
+            <!-- <div id="player"></div> -->
+            <video id="video" autoplay webkit-playsinline loop type="application/x-mpegURL" src="http://inlive.jiuyan.info/recordings/z1.inlive.5800b83775b625795e177cf0/in/2016/10/14/B263C812-65F5-BFB8-6F68-B43CA76FD468-1MLbRAlY.m3u8"></video>
+            <div class="decoration">
+                <div class="head clearfix">
+                    <div class="info">
+                        <img src="">
+                        <div class="name">
+                            <span class="title">待直播...</span>
+                            <div class="count">
+                                <span>0</span>&nbsp;观看
+                            </div>
+                        </div>
+                    </div>
+                    <div class="people">
+                        <!-- <img src="images/avatar.jpg">
+                        <img src="images/avatar.jpg">
+                        <img src="images/avatar.jpg">
+                        <img src="images/avatar.jpg">
+                        <img src="images/avatar.jpg">
+                        <img src="images/avatar.jpg"> -->
+                    </div>
+                    <div class="hot">
+                        <em>热度</em><span>0</span>
+                    </div>
+                </div>
+                <div class="comment">
+                    <!-- <div class="item clearfix">
+                        <img src="images/avatar.jpg">
+                        <div class="word">
+                            犀牛: 男神果然帅到掉渣掉渣到掉渣掉渣到掉渣掉渣到掉渣掉渣到掉渣掉渣掉渣掉渣掉渣掉渣
+                        </div>
+                    </div>
+                    <div class="item clearfix">
+                        <img src="images/avatar.jpg">
+                        <div class="word">
+                            犀牛: 男神果然帅掉渣掉渣
+                        </div>
+                    </div>
+                    <div class="item clearfix">
+                        <div class="word">
+                            犀牛: 男神果然kldsjglk你好
+                        </div>
+                    </div> -->
+                </div>
+                <!-- <div class="qr">
+                    <p class="scan">扫一扫更多惊喜</p>
+                    <p class="download">更多直播下载inApp</p>
+                    <img src="images/downloadApp.png">
+                </div> -->
+                <div class="emoji-box"></div>
+            </div>    
+        </div>      
+        <div class="ring">
+            <img src="images/ring.png">
+        </div> 
+        <div class="qr">
+            <p class="scan">扫码与主播互动</p>
+            <p class="download">更多直播下载inApp</p>
+            <div class="qr-img">                
+                <img class="img" src="images/downloadApp.png">
+                <img class="logo" src="images/APPicon.png">
+            </div>
+        </div>  
+    </div>
+
+<script src="http://7.url.cn/edu/jslib/jquery/1.9.1/jquery.min.js"></script>
+<!-- <script src="./player/mediaelement-and-player.js"></script> -->
+
+<script>
+$(function(){
+    var url = 'http://inlive.jiuyan.info/recordings/z1.inlive.57e1f7321013855d35008279/in/2016/09/21/36E31980-8276-9CDA-8618-C80D36B2CA09-1XBBDpdV.m3u8';
+    // var url = 'http://pili-live-hls.live.in66.com/inlive/57e4d4bb1013856a7605c901.m3u8';
+    autoCenterVideo(url);
+    function autoCenterVideo(src, w, h){
+        var winW = $(window).width();
+        var winH = $(window).height();
+        var winScale = winW / winH;
+
+        var videoW = w || 480;
+        var videoH = h || 848;
+        var videoScale = videoW / videoH;
+
+        if(videoScale > winScale){
+            videoW = winW;
+            videoH = winW / videoScale;
+        }else{
+            videoH = winH;
+            videoW = winH * videoScale;
+        }
+        var $video = $('#video');
+        $video
+            .attr({
+                'width': videoW,
+                'height': videoH,
+                // 'width': winW,
+                // 'height': winH,
+                'src': src
+            })
+            .css({
+                'margin-left': -videoW / 2,
+                'margin-top': -videoH / 2
+            })
+            .on('ended', function(e){
+                // 没有触发
+                // alert('end')
+            })
+            .on('canplay', function(){
+                //触发了,自动播放因为策略被禁止
+                $video[0].play();
+                $video.trigger('click');
+            })
+            .on('error', function(e){
+                // 页面加载时地址无效会触发，播放中不会触发
+                alert('error')
+            })
+            .on('pause', function(){
+                // 回放(no-loop)和直播结束后会触发
+                alert('pause')
+            })
+    }
+})
+
+</script>
+</body>
+</html>

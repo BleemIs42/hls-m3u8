@@ -31,9 +31,10 @@
 <script>
 
 var url = 'http://inlive.jiuyan.info/recordings/z1.inlive.57e1f7321013855d35008279/in/2016/09/21/36E31980-8276-9CDA-8618-C80D36B2CA09-1XBBDpdV.m3u8';
-var url = 'http://pili-live-hls.live.in66.com/inlive/57e37a6a75b62535c3029b9e.m3u8';
+// var url = 'http://pili-live-hls.live.in66.com/inlive/57e39dbe1013856a760306f7.m3u8';
 // var url = 'http://inlive.jiuyan.info/recordings/z1.inlive.57e37f9b5e77b02a3102a6ca/in/2016/09/22/6A5A6880-22A0-C5ED-9210-54EBFBD8B9AD-1rBGvLdV.m3u8';
 // var url = '/test.html';
+// var url = 'http://pili-live-hls.live.in66.com/inlive/57e4d4bb1013856a7605c901.m3u8'
 
 
 createFlash(url);
@@ -68,13 +69,13 @@ function createFlash(src, w, h){
         })
         .html(html);
 
-    var host = '//inlive.jiuyan.info';
-    if(!~url.indexOf(host)){
-        checkUrl(url)
-    }else{
-        url += '?avinfo';
-        getVideoInfo(url);
-    }
+    // var host = '//inlive.jiuyan.info';
+    // if(!~url.indexOf(host)){
+    //     checkUrl(url)
+    // }else{
+    //     url += '?avinfo';
+    //     getVideoInfo(url);
+    // }
 }
 
 // checkUrl(url)
@@ -91,11 +92,12 @@ function checkUrl(url){
         // console.log(res)
         var regM3U = /#EXTM3U/;
         if(regM3U.test(res)){
-            console.log('Source is valid');
+            // console.log('Source is valid');
         }
     })
     .fail(function(){
-        console.error('Source is invalid');
+        // console.error('Source is invalid');
+        $('#player').text('Source is invalid');
         clearTimeout(timer);
     })
 }
@@ -109,26 +111,25 @@ function getVideoInfo(url){
     .done(function(res){
         if(res && res.format && res.format.duration){
             var second = res.format.duration;
-            console.log('second: ' + second)
 
             var timer = setInterval(function(){
                 second--;
                 if(second < 0){
                     clearInterval(timer);
-                    console.log('Video over!')
+                    // console.log('Video over!')
+                    $('#player').text('Video over!');
                 }
             }, 1000)
         }
     })
     .fail(function(){
-        console.error('Source is invalid!');
+        $('#player').text('Source is invalid');
     })
 }
 
 $(window).on('online', function(){
     window.location.reload();
 })
-
 
 </script>
 </body>
